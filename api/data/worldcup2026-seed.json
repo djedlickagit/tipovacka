@@ -1,0 +1,727 @@
+{
+  "source": "ms2026-official-group-seed-v1",
+  "note": "Ostrý seed základních skupin MS 2026 pro Tipovačku. Obsahuje 72 zápasů skupin A–L, týmy a stadiony podle veřejného rozpisu FIFA/aktuálních rozpisů. Časy jsou v aplikačním lokálním formátu pro přehledné řazení a mohou být později zpřesněny dalším importem nebo API.",
+  "import_hint": "Doporučený režim: insert_missing. Existující ručně upravené zápasy zůstanou beze změny.",
+  "matches": [
+    {
+      "external_id": "FIFA-WC2026-GROUP-001",
+      "stage": "group",
+      "group_name": "A",
+      "home_team": "Mexiko",
+      "away_team": "Jižní Afrika",
+      "start_time": "2026-06-11 21:00:00",
+      "venue": "Mexico City Stadium, Mexico City",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-002",
+      "stage": "group",
+      "group_name": "A",
+      "home_team": "Korejská republika",
+      "away_team": "Česko",
+      "start_time": "2026-06-11 23:00:00",
+      "venue": "Estadio Guadalajara, Guadalajara",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-003",
+      "stage": "group",
+      "group_name": "B",
+      "home_team": "Kanada",
+      "away_team": "Bosna a Hercegovina",
+      "start_time": "2026-06-12 21:00:00",
+      "venue": "Toronto Stadium, Toronto",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-004",
+      "stage": "group",
+      "group_name": "D",
+      "home_team": "Spojené státy",
+      "away_team": "Paraguay",
+      "start_time": "2026-06-12 23:00:00",
+      "venue": "Los Angeles Stadium, Los Angeles",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-005",
+      "stage": "group",
+      "group_name": "C",
+      "home_team": "Haiti",
+      "away_team": "Skotsko",
+      "start_time": "2026-06-13 18:00:00",
+      "venue": "Boston Stadium, Boston",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-006",
+      "stage": "group",
+      "group_name": "D",
+      "home_team": "Austrálie",
+      "away_team": "Turecko",
+      "start_time": "2026-06-13 20:00:00",
+      "venue": "BC Place, Vancouver",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-007",
+      "stage": "group",
+      "group_name": "C",
+      "home_team": "Brazílie",
+      "away_team": "Maroko",
+      "start_time": "2026-06-13 22:00:00",
+      "venue": "New York New Jersey Stadium, New York/New Jersey",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-008",
+      "stage": "group",
+      "group_name": "B",
+      "home_team": "Katar",
+      "away_team": "Švýcarsko",
+      "start_time": "2026-06-13 23:30:00",
+      "venue": "San Francisco Bay Area Stadium, San Francisco Bay Area",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-009",
+      "stage": "group",
+      "group_name": "E",
+      "home_team": "Pobřeží slonoviny",
+      "away_team": "Ekvádor",
+      "start_time": "2026-06-14 18:00:00",
+      "venue": "Philadelphia Stadium, Philadelphia",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-010",
+      "stage": "group",
+      "group_name": "E",
+      "home_team": "Německo",
+      "away_team": "Curaçao",
+      "start_time": "2026-06-14 20:00:00",
+      "venue": "Houston Stadium, Houston",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-011",
+      "stage": "group",
+      "group_name": "F",
+      "home_team": "Nizozemsko",
+      "away_team": "Japonsko",
+      "start_time": "2026-06-14 22:00:00",
+      "venue": "Dallas Stadium, Dallas",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-012",
+      "stage": "group",
+      "group_name": "F",
+      "home_team": "Švédsko",
+      "away_team": "Tunisko",
+      "start_time": "2026-06-14 23:30:00",
+      "venue": "Estadio Monterrey, Monterrey",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-013",
+      "stage": "group",
+      "group_name": "H",
+      "home_team": "Saúdská Arábie",
+      "away_team": "Uruguay",
+      "start_time": "2026-06-15 18:00:00",
+      "venue": "Miami Stadium, Miami",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-014",
+      "stage": "group",
+      "group_name": "H",
+      "home_team": "Španělsko",
+      "away_team": "Kapverdy",
+      "start_time": "2026-06-15 20:00:00",
+      "venue": "Atlanta Stadium, Atlanta",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-015",
+      "stage": "group",
+      "group_name": "G",
+      "home_team": "Írán",
+      "away_team": "Nový Zéland",
+      "start_time": "2026-06-15 22:00:00",
+      "venue": "Los Angeles Stadium, Los Angeles",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-016",
+      "stage": "group",
+      "group_name": "G",
+      "home_team": "Belgie",
+      "away_team": "Egypt",
+      "start_time": "2026-06-15 23:30:00",
+      "venue": "Seattle Stadium, Seattle",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-017",
+      "stage": "group",
+      "group_name": "I",
+      "home_team": "Francie",
+      "away_team": "Senegal",
+      "start_time": "2026-06-16 18:00:00",
+      "venue": "New York New Jersey Stadium, New York/New Jersey",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-018",
+      "stage": "group",
+      "group_name": "I",
+      "home_team": "Irák",
+      "away_team": "Norsko",
+      "start_time": "2026-06-16 20:00:00",
+      "venue": "Boston Stadium, Boston",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-019",
+      "stage": "group",
+      "group_name": "J",
+      "home_team": "Argentina",
+      "away_team": "Alžírsko",
+      "start_time": "2026-06-16 22:00:00",
+      "venue": "Kansas City Stadium, Kansas City",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-020",
+      "stage": "group",
+      "group_name": "J",
+      "home_team": "Rakousko",
+      "away_team": "Jordánsko",
+      "start_time": "2026-06-16 23:30:00",
+      "venue": "San Francisco Bay Area Stadium, San Francisco Bay Area",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-021",
+      "stage": "group",
+      "group_name": "L",
+      "home_team": "Ghana",
+      "away_team": "Panama",
+      "start_time": "2026-06-17 18:00:00",
+      "venue": "Toronto Stadium, Toronto",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-022",
+      "stage": "group",
+      "group_name": "L",
+      "home_team": "Anglie",
+      "away_team": "Chorvatsko",
+      "start_time": "2026-06-17 20:00:00",
+      "venue": "Dallas Stadium, Dallas",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-023",
+      "stage": "group",
+      "group_name": "K",
+      "home_team": "Portugalsko",
+      "away_team": "DR Kongo",
+      "start_time": "2026-06-17 22:00:00",
+      "venue": "Houston Stadium, Houston",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-024",
+      "stage": "group",
+      "group_name": "K",
+      "home_team": "Uzbekistán",
+      "away_team": "Kolumbie",
+      "start_time": "2026-06-17 23:30:00",
+      "venue": "Mexico City Stadium, Mexico City",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-025",
+      "stage": "group",
+      "group_name": "A",
+      "home_team": "Česko",
+      "away_team": "Jižní Afrika",
+      "start_time": "2026-06-18 18:00:00",
+      "venue": "Atlanta Stadium, Atlanta",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-026",
+      "stage": "group",
+      "group_name": "B",
+      "home_team": "Švýcarsko",
+      "away_team": "Bosna a Hercegovina",
+      "start_time": "2026-06-18 20:00:00",
+      "venue": "Los Angeles Stadium, Los Angeles",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-027",
+      "stage": "group",
+      "group_name": "B",
+      "home_team": "Kanada",
+      "away_team": "Katar",
+      "start_time": "2026-06-18 22:00:00",
+      "venue": "BC Place, Vancouver",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-028",
+      "stage": "group",
+      "group_name": "A",
+      "home_team": "Mexiko",
+      "away_team": "Korejská republika",
+      "start_time": "2026-06-18 23:30:00",
+      "venue": "Estadio Guadalajara, Guadalajara",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-029",
+      "stage": "group",
+      "group_name": "C",
+      "home_team": "Brazílie",
+      "away_team": "Haiti",
+      "start_time": "2026-06-19 18:00:00",
+      "venue": "Philadelphia Stadium, Philadelphia",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-030",
+      "stage": "group",
+      "group_name": "C",
+      "home_team": "Skotsko",
+      "away_team": "Maroko",
+      "start_time": "2026-06-19 20:00:00",
+      "venue": "Boston Stadium, Boston",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-031",
+      "stage": "group",
+      "group_name": "D",
+      "home_team": "Turecko",
+      "away_team": "Paraguay",
+      "start_time": "2026-06-19 22:00:00",
+      "venue": "San Francisco Bay Area Stadium, San Francisco Bay Area",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-032",
+      "stage": "group",
+      "group_name": "D",
+      "home_team": "Spojené státy",
+      "away_team": "Austrálie",
+      "start_time": "2026-06-19 23:30:00",
+      "venue": "Seattle Stadium, Seattle",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-033",
+      "stage": "group",
+      "group_name": "E",
+      "home_team": "Německo",
+      "away_team": "Pobřeží slonoviny",
+      "start_time": "2026-06-20 18:00:00",
+      "venue": "Toronto Stadium, Toronto",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-034",
+      "stage": "group",
+      "group_name": "E",
+      "home_team": "Ekvádor",
+      "away_team": "Curaçao",
+      "start_time": "2026-06-20 20:00:00",
+      "venue": "Kansas City Stadium, Kansas City",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-035",
+      "stage": "group",
+      "group_name": "F",
+      "home_team": "Nizozemsko",
+      "away_team": "Švédsko",
+      "start_time": "2026-06-20 22:00:00",
+      "venue": "Houston Stadium, Houston",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-036",
+      "stage": "group",
+      "group_name": "F",
+      "home_team": "Tunisko",
+      "away_team": "Japonsko",
+      "start_time": "2026-06-20 23:30:00",
+      "venue": "Estadio Monterrey, Monterrey",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-037",
+      "stage": "group",
+      "group_name": "H",
+      "home_team": "Uruguay",
+      "away_team": "Kapverdy",
+      "start_time": "2026-06-21 18:00:00",
+      "venue": "Miami Stadium, Miami",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-038",
+      "stage": "group",
+      "group_name": "H",
+      "home_team": "Španělsko",
+      "away_team": "Saúdská Arábie",
+      "start_time": "2026-06-21 20:00:00",
+      "venue": "Atlanta Stadium, Atlanta",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-039",
+      "stage": "group",
+      "group_name": "G",
+      "home_team": "Belgie",
+      "away_team": "Írán",
+      "start_time": "2026-06-21 22:00:00",
+      "venue": "Los Angeles Stadium, Los Angeles",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-040",
+      "stage": "group",
+      "group_name": "G",
+      "home_team": "Nový Zéland",
+      "away_team": "Egypt",
+      "start_time": "2026-06-21 23:30:00",
+      "venue": "BC Place, Vancouver",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-041",
+      "stage": "group",
+      "group_name": "I",
+      "home_team": "Norsko",
+      "away_team": "Senegal",
+      "start_time": "2026-06-22 18:00:00",
+      "venue": "New York New Jersey Stadium, New York/New Jersey",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-042",
+      "stage": "group",
+      "group_name": "I",
+      "home_team": "Francie",
+      "away_team": "Irák",
+      "start_time": "2026-06-22 20:00:00",
+      "venue": "Philadelphia Stadium, Philadelphia",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-043",
+      "stage": "group",
+      "group_name": "J",
+      "home_team": "Argentina",
+      "away_team": "Rakousko",
+      "start_time": "2026-06-22 22:00:00",
+      "venue": "Dallas Stadium, Dallas",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-044",
+      "stage": "group",
+      "group_name": "J",
+      "home_team": "Jordánsko",
+      "away_team": "Alžírsko",
+      "start_time": "2026-06-22 23:30:00",
+      "venue": "San Francisco Bay Area Stadium, San Francisco Bay Area",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-045",
+      "stage": "group",
+      "group_name": "L",
+      "home_team": "Anglie",
+      "away_team": "Ghana",
+      "start_time": "2026-06-23 18:00:00",
+      "venue": "Boston Stadium, Boston",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-046",
+      "stage": "group",
+      "group_name": "L",
+      "home_team": "Panama",
+      "away_team": "Chorvatsko",
+      "start_time": "2026-06-23 20:00:00",
+      "venue": "Toronto Stadium, Toronto",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-047",
+      "stage": "group",
+      "group_name": "K",
+      "home_team": "Portugalsko",
+      "away_team": "Uzbekistán",
+      "start_time": "2026-06-23 22:00:00",
+      "venue": "Houston Stadium, Houston",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-048",
+      "stage": "group",
+      "group_name": "K",
+      "home_team": "Kolumbie",
+      "away_team": "DR Kongo",
+      "start_time": "2026-06-23 23:30:00",
+      "venue": "Estadio Guadalajara, Guadalajara",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-049",
+      "stage": "group",
+      "group_name": "C",
+      "home_team": "Skotsko",
+      "away_team": "Brazílie",
+      "start_time": "2026-06-24 17:00:00",
+      "venue": "Miami Stadium, Miami",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-050",
+      "stage": "group",
+      "group_name": "C",
+      "home_team": "Maroko",
+      "away_team": "Haiti",
+      "start_time": "2026-06-24 18:30:00",
+      "venue": "Atlanta Stadium, Atlanta",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-051",
+      "stage": "group",
+      "group_name": "B",
+      "home_team": "Švýcarsko",
+      "away_team": "Kanada",
+      "start_time": "2026-06-24 20:00:00",
+      "venue": "BC Place, Vancouver",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-052",
+      "stage": "group",
+      "group_name": "B",
+      "home_team": "Bosna a Hercegovina",
+      "away_team": "Katar",
+      "start_time": "2026-06-24 21:30:00",
+      "venue": "Seattle Stadium, Seattle",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-053",
+      "stage": "group",
+      "group_name": "A",
+      "home_team": "Česko",
+      "away_team": "Mexiko",
+      "start_time": "2026-06-24 23:00:00",
+      "venue": "Mexico City Stadium, Mexico City",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-054",
+      "stage": "group",
+      "group_name": "A",
+      "home_team": "Jižní Afrika",
+      "away_team": "Korejská republika",
+      "start_time": "2026-06-24 23:30:00",
+      "venue": "Estadio Monterrey, Monterrey",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-055",
+      "stage": "group",
+      "group_name": "E",
+      "home_team": "Curaçao",
+      "away_team": "Pobřeží slonoviny",
+      "start_time": "2026-06-25 17:00:00",
+      "venue": "Philadelphia Stadium, Philadelphia",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-056",
+      "stage": "group",
+      "group_name": "E",
+      "home_team": "Ekvádor",
+      "away_team": "Německo",
+      "start_time": "2026-06-25 18:30:00",
+      "venue": "New York New Jersey Stadium, New York/New Jersey",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-057",
+      "stage": "group",
+      "group_name": "F",
+      "home_team": "Japonsko",
+      "away_team": "Švédsko",
+      "start_time": "2026-06-25 20:00:00",
+      "venue": "Dallas Stadium, Dallas",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-058",
+      "stage": "group",
+      "group_name": "F",
+      "home_team": "Tunisko",
+      "away_team": "Nizozemsko",
+      "start_time": "2026-06-25 21:30:00",
+      "venue": "Kansas City Stadium, Kansas City",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-059",
+      "stage": "group",
+      "group_name": "D",
+      "home_team": "Turecko",
+      "away_team": "Spojené státy",
+      "start_time": "2026-06-25 23:00:00",
+      "venue": "Los Angeles Stadium, Los Angeles",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-060",
+      "stage": "group",
+      "group_name": "D",
+      "home_team": "Paraguay",
+      "away_team": "Austrálie",
+      "start_time": "2026-06-25 23:30:00",
+      "venue": "San Francisco Bay Area Stadium, San Francisco Bay Area",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-061",
+      "stage": "group",
+      "group_name": "I",
+      "home_team": "Norsko",
+      "away_team": "Francie",
+      "start_time": "2026-06-26 17:00:00",
+      "venue": "Boston Stadium, Boston",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-062",
+      "stage": "group",
+      "group_name": "I",
+      "home_team": "Senegal",
+      "away_team": "Irák",
+      "start_time": "2026-06-26 18:30:00",
+      "venue": "Toronto Stadium, Toronto",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-063",
+      "stage": "group",
+      "group_name": "G",
+      "home_team": "Egypt",
+      "away_team": "Írán",
+      "start_time": "2026-06-26 20:00:00",
+      "venue": "Seattle Stadium, Seattle",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-064",
+      "stage": "group",
+      "group_name": "G",
+      "home_team": "Nový Zéland",
+      "away_team": "Belgie",
+      "start_time": "2026-06-26 21:30:00",
+      "venue": "BC Place, Vancouver",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-065",
+      "stage": "group",
+      "group_name": "H",
+      "home_team": "Kapverdy",
+      "away_team": "Saúdská Arábie",
+      "start_time": "2026-06-26 23:00:00",
+      "venue": "Houston Stadium, Houston",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-066",
+      "stage": "group",
+      "group_name": "H",
+      "home_team": "Uruguay",
+      "away_team": "Španělsko",
+      "start_time": "2026-06-26 23:30:00",
+      "venue": "Estadio Guadalajara, Guadalajara",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-067",
+      "stage": "group",
+      "group_name": "L",
+      "home_team": "Panama",
+      "away_team": "Anglie",
+      "start_time": "2026-06-27 17:00:00",
+      "venue": "New York New Jersey Stadium, New York/New Jersey",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-068",
+      "stage": "group",
+      "group_name": "L",
+      "home_team": "Chorvatsko",
+      "away_team": "Ghana",
+      "start_time": "2026-06-27 18:30:00",
+      "venue": "Philadelphia Stadium, Philadelphia",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-069",
+      "stage": "group",
+      "group_name": "J",
+      "home_team": "Alžírsko",
+      "away_team": "Rakousko",
+      "start_time": "2026-06-27 20:00:00",
+      "venue": "Kansas City Stadium, Kansas City",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-070",
+      "stage": "group",
+      "group_name": "J",
+      "home_team": "Jordánsko",
+      "away_team": "Argentina",
+      "start_time": "2026-06-27 21:30:00",
+      "venue": "Dallas Stadium, Dallas",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-071",
+      "stage": "group",
+      "group_name": "K",
+      "home_team": "Kolumbie",
+      "away_team": "Portugalsko",
+      "start_time": "2026-06-27 23:00:00",
+      "venue": "Miami Stadium, Miami",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "FIFA-WC2026-GROUP-072",
+      "stage": "group",
+      "group_name": "K",
+      "home_team": "DR Kongo",
+      "away_team": "Uzbekistán",
+      "start_time": "2026-06-27 23:30:00",
+      "venue": "Atlanta Stadium, Atlanta",
+      "status": "scheduled"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "source": "sample-ms2026",
+  "matches": [
+    {
+      "external_id": "MS2026-SAMPLE-001",
+      "stage": "group",
+      "group_name": "A",
+      "home_team": "Mexiko",
+      "away_team": "Tým A2",
+      "start_time": "2026-06-11T21:00:00",
+      "venue": "Estadio Azteca, Mexico City",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "MS2026-SAMPLE-002",
+      "stage": "group",
+      "group_name": "A",
+      "home_team": "Tým A3",
+      "away_team": "Tým A4",
+      "start_time": "2026-06-12T00:00:00",
+      "venue": "Mexico City",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "MS2026-SAMPLE-003",
+      "stage": "group",
+      "group_name": "B",
+      "home_team": "Kanada",
+      "away_team": "Tým B2",
+      "start_time": "2026-06-12T21:00:00",
+      "venue": "Toronto",
+      "status": "scheduled"
+    },
+    {
+      "external_id": "MS2026-SAMPLE-004",
+      "stage": "group",
+      "group_name": "D",
+      "home_team": "USA",
+      "away_team": "Tým D2",
+      "start_time": "2026-06-13T00:00:00",
+      "venue": "Los Angeles",
+      "status": "scheduled"
+    }
+  ]
+}
