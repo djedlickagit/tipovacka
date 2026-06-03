@@ -3,16 +3,14 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const dbConfig = {
-  host: process.env.DB_HOST || process.env.MYSQLHOST || process.env.MARIADB_HOST || "localhost",
-  port: Number(process.env.DB_PORT || process.env.MYSQLPORT || process.env.MARIADB_PORT || 3306),
-  user: process.env.DB_USER || process.env.MYSQLUSER || process.env.MARIADB_USER || "root",
-  password: process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || process.env.MARIADB_PASSWORD || "",
-  database: process.env.DB_NAME || process.env.MYSQLDATABASE || process.env.MARIADB_DATABASE || "tipovacka_ms2026",
-  connectionLimit: Number(process.env.DB_CONNECTION_LIMIT || 10),
+export const dbConfig = {
+  host: process.env.DB_HOST || process.env.MYSQLHOST || "localhost",
+  port: Number(process.env.DB_PORT || process.env.MYSQLPORT || 3306),
+  user: process.env.DB_USER || process.env.MYSQLUSER || "root",
+  password: process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || "",
+  database: process.env.DB_NAME || process.env.MYSQLDATABASE || "tipovacka_ms2026",
+  connectionLimit: 10,
   bigIntAsNumber: true,
-  connectTimeout: Number(process.env.DB_CONNECT_TIMEOUT || 15000),
-  acquireTimeout: Number(process.env.DB_ACQUIRE_TIMEOUT || 15000),
 };
 
 export const pool = mariadb.createPool(dbConfig);
@@ -25,15 +23,4 @@ export async function query(sql, params = []) {
   } finally {
     if (conn) conn.release();
   }
-}
-
-export function getDbConfigSafe() {
-  return {
-    host: dbConfig.host,
-    port: dbConfig.port,
-    user: dbConfig.user,
-    database: dbConfig.database,
-    hasPassword: Boolean(dbConfig.password),
-    connectionLimit: dbConfig.connectionLimit,
-  };
 }

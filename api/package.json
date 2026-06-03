@@ -4,9 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js",
+    "start": "node scripts/init-db.js && node server.js",
     "fix-users": "node scripts/ensure-users-management.js",
-    "sync-schema": "node scripts/ensure-sync-schema.js"
+    "sync-schema": "node scripts/ensure-sync-schema.js",
+    "init-db": "node scripts/init-db.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
