@@ -1,4 +1,13 @@
-import * as mariadb from "mariadb";
+import fs from 'fs';
+import path from 'path';
+
+const dbPath = path.resolve('api/db.js');
+if (!fs.existsSync(dbPath)) {
+  console.error('Nenalezeno api/db.js. Spusť skript z kořene projektu.');
+  process.exit(1);
+}
+
+const next = `import * as mariadb from "mariadb";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -37,3 +46,7 @@ export function getDbConfigSafe() {
     connectionLimit: dbConfig.connectionLimit,
   };
 }
+`;
+
+fs.writeFileSync(dbPath, next, 'utf8');
+console.log('OK: api/db.js upraveno pro Railway MYSQL* proměnné.');
