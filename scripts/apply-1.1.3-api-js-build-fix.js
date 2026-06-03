@@ -1,9 +1,21 @@
-const configuredApiBase = import.meta.env.VITE_API_URL;
+#!/usr/bin/env node
+import fs from "fs";
+import path from "path";
+
+const root = process.cwd();
+const apiPath = path.join(root, "web", "src", "api.js");
+
+if (!fs.existsSync(apiPath)) {
+  console.error(`Soubor nenalezen: ${path.relative(root, apiPath)}`);
+  process.exit(1);
+}
+
+const apiJs = `const configuredApiBase = import.meta.env.VITE_API_URL;
 
 export const API_BASE = (configuredApiBase && String(configuredApiBase).trim()
   ? String(configuredApiBase).trim()
   : "/api"
-).replace(/\/+$/, "");
+).replace(/\\/+$/, "");
 
 export function getToken() {
   return localStorage.getItem("tipovacka_token") || "";
@@ -58,3 +70,7 @@ export async function apiFetch(pathValue, options = {}) {
 
   return data;
 }
+`;
+
+fs.writeFileSync(apiPath, apiJs, "utf8");
+console.log("OK: web/src/api.js opraveno pro Vite build.");

@@ -1,30 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { API_BASE, apiFetch, setToken } from "../api";
+import React, { useState } from "react";
+import { apiFetch, setToken } from "../api";
 
 export default function LoginScreen({ onLogin, onOpenPublic }) {
   const [mode, setMode] = useState("player");
   const [loading, setLoading] = useState(false);
-  const [apiOk, setApiOk] = useState(null);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    let alive = true;
-
-    async function checkApi() {
-      try {
-        await apiFetch("/health");
-        if (alive) setApiOk(true);
-      } catch (err) {
-        if (alive) setApiOk(false);
-      }
-    }
-
-    checkApi();
-
-    return () => {
-      alive = false;
-    };
-  }, []);
+  const isAdmin = mode === "admin";
+  const isRegister = mode === "register";
 
   async function submit(event) {
     event.preventDefault();
@@ -34,14 +17,36 @@ export default function LoginScreen({ onLogin, onOpenPublic }) {
     const form = new FormData(event.currentTarget);
 
     try {
-      const result = await apiFetch("/auth/login", {
-        method: "POST",
-        body: JSON.stringify({
-          login: form.get("login"),
-          pin: mode === "player" ? form.get("secret") : "",
-          password: mode === "admin" ? form.get("secret") : "",
-        }),
-      });
+      let result;
+
+      if (isRegister) {
+        const pin = String(form.get("pin") || "").trim();
+        const pinConfirm = String(form.get("pin_confirm") || "").trim();
+
+        if (pin !== pinConfirm) {
+          throw new Error("PINy se neshodují.");
+        }
+
+        result = await apiFetch("/auth/register", {
+          method: "POST",
+          body: JSON.stringify({
+            name: form.get("name"),
+            login_name: form.get("login"),
+            email: form.get("email"),
+            pin,
+            pin_confirm: pinConfirm,
+          }),
+        });
+      } else {
+        result = await apiFetch("/auth/login", {
+          method: "POST",
+          body: JSON.stringify({
+            login: form.get("login"),
+            pin: isAdmin ? "" : form.get("secret"),
+            password: isAdmin ? form.get("secret") : "",
+          }),
+        });
+      }
 
       setToken(result.token);
       onLogin(result.user);
@@ -63,37 +68,66 @@ export default function LoginScreen({ onLogin, onOpenPublic }) {
           </div>
         </div>
 
-        <div className="api-status">
-          <span className={apiOk ? "dot ok" : apiOk === false ? "dot bad" : "dot"} />
-          <span>
-            API: {API_BASE} — {apiOk === null ? "kontroluji..." : apiOk ? "připojeno" : "nedostupné"}
-          </span>
-        </div>
-
-        <div className="login-switch">
+        <div className="login-switch login-switch-three">
           <button type="button" className={mode === "player" ? "active" : ""} onClick={() => setMode("player")}>Tipovač</button>
+          <button type="button" className={mode === "register" ? "active" : ""} onClick={() => setMode("register")}>Registrace</button>
           <button type="button" className={mode === "admin" ? "active" : ""} onClick={() => setMode("admin")}>Admin</button>
         </div>
 
         <form onSubmit={submit} className="form-grid login-form">
-          <label>
-            {mode === "admin" ? "Admin login" : "Jméno / login"}
-            <input name="login" placeholder={mode === "admin" ? "admin" : "např. david"} required autoFocus />
-          </label>
-          <label>
-            {mode === "admin" ? "Heslo" : "PIN"}
-            <input name="secret" type={mode === "admin" ? "password" : "tel"} placeholder={mode === "admin" ? "admin2026" : "1234"} required />
-          </label>
+          {isRegister ? (
+            <>
+              <label>
+                Jméno tipovače
+                <input name="name" placeholder="Tvoje jméno" required autoFocus minLength={2} />
+              </label>
+              <label>
+                Login
+                <input name="login" placeholder="např. david" required minLength={3} autoComplete="username" />
+              </label>
+              <label>
+                E-mail <span className="label-muted">nepovinné</span>
+                <input name="email" type="email" placeholder="email pro případnou domluvu" autoComplete="email" />
+              </label>
+              <div className="login-pin-grid">
+                <label>
+                  PIN
+                  <input name="pin" type="password" inputMode="numeric" placeholder="min. 4 znaky" required minLength={4} autoComplete="new-password" />
+                </label>
+                <label>
+                  PIN znovu
+                  <input name="pin_confirm" type="password" inputMode="numeric" placeholder="zopakovat PIN" required minLength={4} autoComplete="new-password" />
+                </label>
+              </div>
+            </>
+          ) : (
+            <>
+              <label>
+                {isAdmin ? "Admin login" : "Jméno / login"}
+                <input name="login" placeholder={isAdmin ? "admin login" : "tvůj login"} required autoFocus autoComplete="username" />
+              </label>
+              <label>
+                {isAdmin ? "Heslo" : "PIN"}
+                <input name="secret" type="password" inputMode={isAdmin ? undefined : "numeric"} placeholder={isAdmin ? "heslo administrátora" : "tvůj PIN"} required autoComplete={isAdmin ? "current-password" : "one-time-code"} />
+              </label>
+            </>
+          )}
+
           {error && <div className="form-error">{error}</div>}
-          <button className="btn" disabled={loading}>{loading ? "Přihlašuji..." : "Přihlásit"}</button>
+
+          <button className="btn" disabled={loading}>
+            {loading
+              ? isRegister ? "Registruji..." : "Přihlašuji..."
+              : isRegister ? "Zaregistrovat a pokračovat" : "Přihlásit"}
+          </button>
         </form>
 
         <button type="button" className="btn btn-soft login-public-btn" onClick={onOpenPublic}>
           Veřejný přehled bez přihlášení
         </button>
 
-        <p className="login-help">
-          Výchozí přístup po migraci: admin / admin2026. Ukázkový tipovač: david / 1234.
+        <p className="login-note">
+          Registrace vytvoří běžný účet tipovače. Administrátorský přístup spravuje pořadatel soutěže.
         </p>
       </div>
     </div>

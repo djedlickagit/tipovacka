@@ -1,11 +1,67 @@
 import { Router } from "express";
 import { query } from "../db.js";
-import { publicUser, signToken, verifySecret, verifyToken } from "../services/auth.service.js";
+import { hashSecret, publicUser, signToken, verifySecret, verifyToken } from "../services/auth.service.js";
 
 const router = Router();
 
+function cleanLogin(value, fallback = "") {
+  return String(value || fallback || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9._-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
 router.get("/health", (req, res) => {
   res.json({ ok: true, module: "auth" });
+});
+
+
+router.post("/register", async (req, res) => {
+  try {
+    const body = req.body || {};
+    const name = String(body.name || "").trim();
+    const loginName = cleanLogin(body.login_name || body.login, name);
+    const email = String(body.email || "").trim() || null;
+    const pin = String(body.pin || "").trim();
+    const pinConfirm = String(body.pin_confirm || body.pinConfirm || "").trim();
+
+    if (name.length < 2) return res.status(400).json({ error: "Zadej jméno tipovače." });
+    if (loginName.length < 3) return res.status(400).json({ error: "Login musí mít alespoň 3 znaky." });
+    if (pin.length < 4) return res.status(400).json({ error: "PIN musí mít alespoň 4 číslice nebo znaky." });
+    if (pinConfirm && pin !== pinConfirm) return res.status(400).json({ error: "PINy se neshodují." });
+
+    const existing = await query(
+      `SELECT id FROM users WHERE LOWER(login_name) = LOWER(?) LIMIT 1`,
+      [loginName]
+    );
+
+    if (existing.length) return res.status(409).json({ error: "Tento login už existuje." });
+
+    const result = await query(
+      `INSERT INTO users (name, login_name, email, role, pin_hash, password_hash, is_active)
+       VALUES (?, ?, ?, 'player', ?, NULL, 1)`,
+      [name, loginName, email, await hashSecret(pin)]
+    );
+
+    const rows = await query(
+      `SELECT id, name, login_name, email, role, is_active, pin_hash, password_hash
+       FROM users
+       WHERE id = ?
+       LIMIT 1`,
+      [result.insertId]
+    );
+
+    const user = rows[0];
+    res.status(201).json({ token: signToken(user), user: publicUser(user) });
+  } catch (error) {
+    const message = error.code === "ER_DUP_ENTRY" ? "Tento login už existuje." : "Registraci se nepodařilo dokončit.";
+    console.error("POST /api/auth/register", error);
+    res.status(500).json({ error: message, detail: error.message });
+  }
 });
 
 router.post("/login", async (req, res) => {

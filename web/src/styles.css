@@ -3438,3 +3438,55 @@ tbody tr:hover { background: rgba(36, 87, 245, 0.038); }
 }
 /* PATCH 1.0C END – public compact stats */
 
+
+
+/* PATCH 1.1.2 registration clean login */
+.login-switch.login-switch-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.login-switch.login-switch-three button {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 13px;
+}
+
+.login-pin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.label-muted {
+  color: #98a2b3;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.login-note {
+  margin: 14px 0 0;
+  color: #667085;
+  font-size: 12px;
+  line-height: 1.55;
+  font-weight: 650;
+}
+
+.login-card .api-status,
+.login-card .login-help {
+  display: none !important;
+}
+
+@media (max-width: 560px) {
+  .login-card {
+    padding: 22px;
+    border-radius: 26px;
+  }
+
+  .login-switch.login-switch-three {
+    grid-template-columns: 1fr;
+  }
+
+  .login-pin-grid {
+    grid-template-columns: 1fr;
+  }
+}
