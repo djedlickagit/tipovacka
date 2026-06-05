@@ -1,65 +1,54 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import * as mariadb from "mariadb";
-import dotenv from "dotenv";
-
-dotenv.config();
+import { pool } from "../db.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const dbConfig = {
-  host: process.env.DB_HOST || process.env.MYSQLHOST || "localhost",
-  port: Number(process.env.DB_PORT || process.env.MYSQLPORT || 3306),
-  user: process.env.DB_USER || process.env.MYSQLUSER || "root",
-  password: process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || "",
-  database: process.env.DB_NAME || process.env.MYSQLDATABASE || "tipovacka_ms2026",
-  connectionLimit: 1,
-  multipleStatements: true,
-};
+const schemaPath = path.resolve(__dirname, "../schema.sql");
 
-function splitSqlStatements(sql) {
-  return sql
-    .replace(//*[sS]*?*//g, "")
-    .split(/;s*(?:?
-|$)/)
-    .map((part) => part.trim())
-    .filter(Boolean);
-}
-
-async function main() {
-  const schemaPath = path.join(__dirname, "..", "schema.sql");
-
+async function initDb() {
   if (!fs.existsSync(schemaPath)) {
-    throw new Error(`Soubor schema.sql nenalezen: ${schemaPath}`);
+    throw new Error("Soubor schema.sql nebyl nalezen: " + schemaPath);
   }
 
-  const pool = mariadb.createPool(dbConfig);
-  let conn;
+  const schema = fs.readFileSync(schemaPath, "utf8");
+
+  const statements = schema
+    .split(/;\s*(?:\r?\n|$)/g)
+    .map((statement) => statement.trim())
+    .filter((statement) => statement.length > 0)
+    .filter((statement) => !statement.startsWith("--"));
+
+  const conn = await pool.getConnection();
 
   try {
-    conn = await pool.getConnection();
-    const schema = fs.readFileSync(schemaPath, "utf8");
-    const statements = splitSqlStatements(schema);
-
     for (const statement of statements) {
       await conn.query(statement);
     }
 
-    console.log(`DB init OK: schéma připraveno v databázi "${dbConfig.database}".`);
+    const dbName =
+      process.env.DB_NAME ||
+      process.env.MYSQLDATABASE ||
+      "tipovacka_ms2026";
+
+    console.log('DB init OK: schéma připraveno v databázi "' + dbName + '".');
   } finally {
-    if (conn) conn.release();
+    conn.release();
     await pool.end();
   }
 }
 
-main()
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((error) => {
-    console.error("DB init selhal:", error?.message || error);
-    console.error("Zkontroluj Railway Variables: DB_HOST/DB_PORT/DB_USER/DB_PASSWORD/DB_NAME nebo MYSQLHOST/MYSQLPORT/MYSQLUSER/MYSQLPASSWORD/MYSQLDATABASE.");
-    process.exit(1);
-  });
+initDb().catch(async (error) => {
+  console.error("DB init selhal:", error.message);
+  console.error(
+    "Zkontroluj Railway Variables: DB_HOST/DB_PORT/DB_USER/DB_PASSWORD/DB_NAME nebo MYSQLHOST/MYSQLPORT/MYSQLUSER/MYSQLPASSWORD/MYSQLDATABASE."
+  );
+
+  try {
+    await pool.end();
+  } catch {}
+
+  process.exit(1);
+});
