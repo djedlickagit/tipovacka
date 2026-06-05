@@ -8,6 +8,7 @@ export const adminTabs = [
   { id: "leaderboard", label: "Žebříček" },
   { id: "standings", label: "Tabulky" },
   { id: "teams", label: "Týmy" },
+  { id: "profile", label: "Profil" },
   { id: "rules", label: "Pravidla" },
   { id: "sync", label: "Synchronizace" },
 ];

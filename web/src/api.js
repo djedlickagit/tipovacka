@@ -1,28 +1,20 @@
-const configuredApiBase = import.meta.env.VITE_API_URL;
+const rawApiBase = import.meta.env.VITE_API_URL || "/api";
 
-export const API_BASE = (configuredApiBase && String(configuredApiBase).trim()
-  ? String(configuredApiBase).trim()
-  : "/api"
-).replace(/\/+$/, "");
+export const API_BASE = rawApiBase.replace(/\/$/, "");
 
 export function getToken() {
   return localStorage.getItem("tipovacka_token") || "";
 }
 
 export function setToken(token) {
-  if (token) {
-    localStorage.setItem("tipovacka_token", token);
-  } else {
-    localStorage.removeItem("tipovacka_token");
-  }
+  if (token) localStorage.setItem("tipovacka_token", token);
+  else localStorage.removeItem("tipovacka_token");
 }
 
-export async function apiFetch(pathValue, options = {}) {
+export async function apiFetch(path, options = {}) {
   const token = getToken();
-  const cleanPath = String(pathValue || "").startsWith("/")
-    ? String(pathValue || "")
-    : "/" + String(pathValue || "");
-  const url = API_BASE + cleanPath;
+  const normalizedPath = path.startsWith("/") ? path : "/" + path;
+  const url = API_BASE + normalizedPath;
 
   let response;
 
@@ -45,9 +37,7 @@ export async function apiFetch(pathValue, options = {}) {
     : await response.text().catch(() => "");
 
   if (!response.ok) {
-    if (response.status === 401) {
-      setToken("");
-    }
+    if (response.status === 401) setToken("");
 
     const message = typeof data === "string"
       ? data

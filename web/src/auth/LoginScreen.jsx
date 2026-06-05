@@ -2,54 +2,97 @@ import React, { useState } from "react";
 import { apiFetch, setToken } from "../api";
 
 export default function LoginScreen({ onLogin, onOpenPublic }) {
-  const [mode, setMode] = useState("player");
+  const [mode, setMode] = useState("login");
+  const [loginRole, setLoginRole] = useState("player");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const isAdmin = mode === "admin";
-  const isRegister = mode === "register";
+  function switchMode(nextMode) {
+    setMode(nextMode);
+    setError("");
+    setSuccess("");
+  }
 
-  async function submit(event) {
+  async function submitLogin(event) {
     event.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
 
     const form = new FormData(event.currentTarget);
 
     try {
-      let result;
-
-      if (isRegister) {
-        const pin = String(form.get("pin") || "").trim();
-        const pinConfirm = String(form.get("pin_confirm") || "").trim();
-
-        if (pin !== pinConfirm) {
-          throw new Error("PINy se neshodují.");
-        }
-
-        result = await apiFetch("/auth/register", {
-          method: "POST",
-          body: JSON.stringify({
-            name: form.get("name"),
-            login_name: form.get("login"),
-            email: form.get("email"),
-            pin,
-            pin_confirm: pinConfirm,
-          }),
-        });
-      } else {
-        result = await apiFetch("/auth/login", {
-          method: "POST",
-          body: JSON.stringify({
-            login: form.get("login"),
-            pin: isAdmin ? "" : form.get("secret"),
-            password: isAdmin ? form.get("secret") : "",
-          }),
-        });
-      }
+      const result = await apiFetch("/auth/login", {
+        method: "POST",
+        body: JSON.stringify({
+          login: form.get("login"),
+          pin: loginRole === "player" ? form.get("secret") : "",
+          password: loginRole === "admin" ? form.get("secret") : "",
+        }),
+      });
 
       setToken(result.token);
       onLogin(result.user);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function submitRegister(event) {
+    event.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
+    const form = new FormData(event.currentTarget);
+
+    try {
+      const result = await apiFetch("/auth/register", {
+        method: "POST",
+        body: JSON.stringify({
+          name: form.get("name"),
+          login_name: form.get("login_name"),
+          email: form.get("email"),
+          pin: form.get("pin"),
+          pin_confirm: form.get("pin_confirm"),
+        }),
+      });
+
+      setToken(result.token);
+      onLogin(result.user);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function submitForgot(event) {
+    event.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
+    const form = new FormData(event.currentTarget);
+
+    try {
+      const result = await apiFetch("/auth/forgot-pin", {
+        method: "POST",
+        body: JSON.stringify({
+          login_name: form.get("login_name"),
+          email: form.get("email"),
+          new_pin: form.get("new_pin"),
+          new_pin_confirm: form.get("new_pin_confirm"),
+        }),
+      });
+
+      setSuccess(result.message || "PIN byl změněn. Můžeš se přihlásit.");
+      event.currentTarget.reset();
+      setMode("login");
+      setLoginRole("player");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -68,67 +111,64 @@ export default function LoginScreen({ onLogin, onOpenPublic }) {
           </div>
         </div>
 
-        <div className="login-switch login-switch-three">
-          <button type="button" className={mode === "player" ? "active" : ""} onClick={() => setMode("player")}>Tipovač</button>
-          <button type="button" className={mode === "register" ? "active" : ""} onClick={() => setMode("register")}>Registrace</button>
-          <button type="button" className={mode === "admin" ? "active" : ""} onClick={() => setMode("admin")}>Admin</button>
+        <div className="login-switch login-mode-switch">
+          <button type="button" className={mode === "login" ? "active" : ""} onClick={() => switchMode("login")}>Přihlášení</button>
+          <button type="button" className={mode === "register" ? "active" : ""} onClick={() => switchMode("register")}>Registrace</button>
+          <button type="button" className={mode === "forgot" ? "active" : ""} onClick={() => switchMode("forgot")}>Zapomenutý PIN</button>
         </div>
 
-        <form onSubmit={submit} className="form-grid login-form">
-          {isRegister ? (
-            <>
-              <label>
-                Jméno tipovače
-                <input name="name" placeholder="Tvoje jméno" required autoFocus minLength={2} />
-              </label>
-              <label>
-                Login
-                <input name="login" placeholder="např. david" required minLength={3} autoComplete="username" />
-              </label>
-              <label>
-                E-mail <span className="label-muted">nepovinné</span>
-                <input name="email" type="email" placeholder="email pro případnou domluvu" autoComplete="email" />
-              </label>
-              <div className="login-pin-grid">
-                <label>
-                  PIN
-                  <input name="pin" type="password" inputMode="numeric" placeholder="min. 4 znaky" required minLength={4} autoComplete="new-password" />
-                </label>
-                <label>
-                  PIN znovu
-                  <input name="pin_confirm" type="password" inputMode="numeric" placeholder="zopakovat PIN" required minLength={4} autoComplete="new-password" />
-                </label>
-              </div>
-            </>
-          ) : (
-            <>
-              <label>
-                {isAdmin ? "Admin login" : "Jméno / login"}
-                <input name="login" placeholder={isAdmin ? "admin login" : "tvůj login"} required autoFocus autoComplete="username" />
-              </label>
-              <label>
-                {isAdmin ? "Heslo" : "PIN"}
-                <input name="secret" type="password" inputMode={isAdmin ? undefined : "numeric"} placeholder={isAdmin ? "heslo administrátora" : "tvůj PIN"} required autoComplete={isAdmin ? "current-password" : "one-time-code"} />
-              </label>
-            </>
-          )}
+        {mode === "login" && (
+          <>
+            <div className="login-switch">
+              <button type="button" className={loginRole === "player" ? "active" : ""} onClick={() => setLoginRole("player")}>Tipovač</button>
+              <button type="button" className={loginRole === "admin" ? "active" : ""} onClick={() => setLoginRole("admin")}>Admin</button>
+            </div>
 
-          {error && <div className="form-error">{error}</div>}
+            <form onSubmit={submitLogin} className="form-grid login-form">
+              <label>
+                {loginRole === "admin" ? "Admin login" : "Jméno / login"}
+                <input name="login" required autoFocus />
+              </label>
+              <label>
+                {loginRole === "admin" ? "Heslo" : "PIN"}
+                <input name="secret" type={loginRole === "admin" ? "password" : "tel"} required />
+              </label>
+              {error && <div className="form-error">{error}</div>}
+              {success && <div className="form-success">{success}</div>}
+              <button className="btn" disabled={loading}>{loading ? "Přihlašuji..." : "Přihlásit"}</button>
+            </form>
+          </>
+        )}
 
-          <button className="btn" disabled={loading}>
-            {loading
-              ? isRegister ? "Registruji..." : "Přihlašuji..."
-              : isRegister ? "Zaregistrovat a pokračovat" : "Přihlásit"}
-          </button>
-        </form>
+        {mode === "register" && (
+          <form onSubmit={submitRegister} className="form-grid login-form">
+            <label>Jméno tipovače<input name="name" required autoFocus /></label>
+            <label>Login<input name="login_name" required /></label>
+            <label className="full">E-mail pro obnovu PINu<input name="email" type="email" required /></label>
+            <label>PIN<input name="pin" type="tel" required minLength="4" /></label>
+            <label>PIN znovu<input name="pin_confirm" type="tel" required minLength="4" /></label>
+            {error && <div className="form-error">{error}</div>}
+            <p className="muted full">Registrace vytvoří pouze běžný účet tipovače. Admina vytváří správce v administraci.</p>
+            <button className="btn" disabled={loading}>{loading ? "Registruji..." : "Registrovat a přihlásit"}</button>
+          </form>
+        )}
+
+        {mode === "forgot" && (
+          <form onSubmit={submitForgot} className="form-grid login-form">
+            <label>Login<input name="login_name" required autoFocus /></label>
+            <label>E-mail z registrace<input name="email" type="email" required /></label>
+            <label>Nový PIN<input name="new_pin" type="tel" required minLength="4" /></label>
+            <label>Nový PIN znovu<input name="new_pin_confirm" type="tel" required minLength="4" /></label>
+            {error && <div className="form-error">{error}</div>}
+            {success && <div className="form-success">{success}</div>}
+            <p className="muted full">Obnova funguje pro tipovače, kteří mají u účtu uložený e-mail. Pokud e-mail chybí, nový PIN nastaví správce.</p>
+            <button className="btn" disabled={loading}>{loading ? "Měním PIN..." : "Změnit PIN"}</button>
+          </form>
+        )}
 
         <button type="button" className="btn btn-soft login-public-btn" onClick={onOpenPublic}>
           Veřejný přehled bez přihlášení
         </button>
-
-        <p className="login-note">
-          Registrace vytvoří běžný účet tipovače. Administrátorský přístup spravuje pořadatel soutěže.
-        </p>
       </div>
     </div>
   );

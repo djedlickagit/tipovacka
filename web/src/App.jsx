@@ -912,6 +912,52 @@ export default function App() {
     await loadAll(loggedUser);
   }
 
+  async function saveOwnProfile(event) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+
+    try {
+      const result = await apiFetch("/auth/me", {
+        method: "PUT",
+        body: JSON.stringify({
+          name: form.get("name"),
+          login_name: form.get("login_name"),
+          email: form.get("email"),
+        }),
+      });
+
+      if (result.token) setToken(result.token);
+      setUser(result.user);
+      if (result.user?.role === "player") setUsers([result.user]);
+      showToast("Profil uložen.");
+      await loadAll(result.user);
+    } catch (err) {
+      showToast(err.message);
+    }
+  }
+
+  async function saveOwnAccess(event) {
+    event.preventDefault();
+    const formEl = event.currentTarget;
+    const form = new FormData(formEl);
+
+    try {
+      await apiFetch("/auth/me/access", {
+        method: "PUT",
+        body: JSON.stringify({
+          current_secret: form.get("current_secret"),
+          new_secret: form.get("new_secret"),
+          new_secret_confirm: form.get("new_secret_confirm"),
+        }),
+      });
+
+      formEl.reset();
+      showToast(user.role === "admin" ? "Heslo změněno." : "PIN změněn.");
+    } catch (err) {
+      showToast(err.message);
+    }
+  }
+
   const players = useMemo(() => users.filter((u) => u.role === "player"), [users]);
   const myTipsByMatch = useMemo(() => {
     const map = new Map();
@@ -2233,6 +2279,33 @@ export default function App() {
                 </section>
               ))}
               {!standings.length && <div className="empty-line">Zatím není odehraný žádný skupinový zápas s výsledkem.</div>}
+            </div>
+          </section>
+        )}
+
+
+        {activeTab === "profile" && user.role === "player" && (
+          <section className="profile-page layout-2">
+            <div className="card profile-card">
+              <h2>Můj profil</h2>
+              <p className="muted">Uprav si jméno, login a e-mail. E-mail se používá pro obnovu PINu.</p>
+              <form onSubmit={saveOwnProfile} className="form-grid">
+                <label>Jméno<input name="name" defaultValue={user.name || ""} required /></label>
+                <label>Login<input name="login_name" defaultValue={user.login_name || ""} required /></label>
+                <label className="full">E-mail<input name="email" type="email" defaultValue={user.email || ""} placeholder="např. jmeno@email.cz" /></label>
+                <button className="btn" type="submit">Uložit profil</button>
+              </form>
+            </div>
+
+            <div className="card profile-card">
+              <h2>Změna PINu</h2>
+              <p className="muted">Z bezpečnostních důvodů je potřeba zadat současný PIN.</p>
+              <form onSubmit={saveOwnAccess} className="form-grid">
+                <label>Současný PIN<input name="current_secret" type="password" required /></label>
+                <label>Nový PIN<input name="new_secret" type="password" required minLength="4" /></label>
+                <label>Nový PIN znovu<input name="new_secret_confirm" type="password" required minLength="4" /></label>
+                <button className="btn" type="submit">Změnit PIN</button>
+              </form>
             </div>
           </section>
         )}
